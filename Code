@@ -1,0 +1,80 @@
+class Node:
+    def __init__(self,data = None):
+        self.data = data
+        self.next = None
+class Linked_list:
+    def __init__(self):
+        self.head = None
+        
+    def display(self):
+        current = self.head
+        while current.next != None:
+            print(current.data)
+            current = current.next
+    def add(self,data):
+        newval = Node(data)
+        if self.head == None:
+            self.head = newval
+            return
+        else:
+            current = self.head
+            while current.next != None:
+                current = current.next
+            current.next = newval
+    def atstart(self,data):
+        newval = Node(data)
+        newval.next = self.head
+        self.head = newval
+    def inbit(self,pval,data):
+        current = self.head
+        done = False
+        while current.next != None:
+            if current.data == pval:
+                newval = Node(data)
+                newval.next = current.next
+                current.next = newval
+                done = True
+            current = current.next
+        if not done:
+            print(f"given value {pval} not in list")
+    def replace(self,rval,data):
+        current = self.head
+        done = False
+        while current.next != None:
+            if current.data == rval:
+                current.data = data
+                done = True
+            current = current.next
+        if not done:
+            print(f'Cannot replace, given value {rval} not found!')
+    def delete(self,data):
+        current = self.head
+        done = False
+        while current.next != None:
+            if current.next.data == data:
+                current.next.data = None
+                current.next = current.next.next
+                done = True
+            current = current.next
+        if not done:
+            print(f'The given data {data} is not in list')
+mylist = Linked_list()
+lst = [23,43,21,53,2,64]
+for item in lst:
+    mylist.add(item)
+mylist.atstart('start')
+mylist.inbit(21,'middle')
+mylist.replace(22,'end')
+mylist.delete(432)
+mylist.display()
+
+OUTPUT:
+Cannot replace, given value 22 not found!
+The given data 432 is not in list
+start
+23
+43
+21
+middle
+53
+2
