@@ -8,7 +8,7 @@ class Linked_list:
         
     def display(self):
         current = self.head
-        while current.next != None:
+        while current != None:
             print(current.data)
             current = current.next
     def add(self,data):
@@ -19,8 +19,10 @@ class Linked_list:
         else:
             current = self.head
             while current.next != None:
+                
                 current = current.next
             current.next = newval
+            
     def atstart(self,data):
         newval = Node(data)
         newval.next = self.head
@@ -28,19 +30,20 @@ class Linked_list:
     def inbit(self,pval,data):
         current = self.head
         done = False
-        while current.next != None:
+        while current != None:
             if current.data == pval:
                 newval = Node(data)
                 newval.next = current.next
                 current.next = newval
                 done = True
             current = current.next
+        
         if not done:
             print(f"given value {pval} not in list")
     def replace(self,rval,data):
         current = self.head
         done = False
-        while current.next != None:
+        while current != None:
             if current.data == rval:
                 current.data = data
                 done = True
@@ -49,15 +52,28 @@ class Linked_list:
             print(f'Cannot replace, given value {rval} not found!')
     def delete(self,data):
         current = self.head
-        done = False
-        while current.next != None:
-            if current.next.data == data:
-                current.next.data = None
-                current.next = current.next.next
-                done = True
+        if current.data == data:
+            self.head = current.next
+            current = None
+            return
+        while current != None:
+            if current.data == data:
+                break
+            pval = current
             current = current.next
-        if not done:
-            print(f'The given data {data} is not in list')
+        if current == None:
+            print(f"{data} Not Found!")
+            return
+        pval.next = current.next
+        current = None
+    def length(self):
+        current = self.head
+        count = 0
+        while current != None:
+            count +=1
+            current = current.next
+        
+        print(count)
 mylist = Linked_list()
 lst = [23,43,21,53,2,64]
 for item in lst:
@@ -65,16 +81,6 @@ for item in lst:
 mylist.atstart('start')
 mylist.inbit(21,'middle')
 mylist.replace(22,'end')
-mylist.delete(432)
+mylist.delete(6)
 mylist.display()
-
-OUTPUT:
-Cannot replace, given value 22 not found!
-The given data 432 is not in list
-start
-23
-43
-21
-middle
-53
-2
+mylist.length()
